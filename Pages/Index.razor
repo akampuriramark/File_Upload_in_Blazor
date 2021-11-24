@@ -9,7 +9,7 @@
         <button class="btn btn-sm btn-success" type="button" @onclick="UploadFiles">Upload</button>
         <br />
         @{
-            // generate progress css class basing on whether display propgress is set.
+            // generate progress css class based on whether display progress is set.
             var progressCss = "progress" + (displayProgress ? "" : "d-none");
             // progress bar width is the percentage of upload progress
             var progressWidthStyle = progressPercent + "%";
@@ -43,9 +43,9 @@
 }
 
 @code{
-    // display progress only when uploading
+    // to toggle display of progress only when uploading
     private bool displayProgress;
-    // upload progress in percentage
+    // to upload progress in percentage
     private int progressPercent;
     // Show results of the upload
     private string labelText = "";
@@ -56,6 +56,7 @@
     private IList<string> previewImages = new List<string>();
 
     // method automatically executed when there's a new selection in files to upload
+    // get files to upload
     private async Task OnInputFileChange(InputFileChangeEventArgs e)
     {
         // Get all files selected in the file picker
@@ -76,11 +77,12 @@
     {
         try
         {
+            // check to make sure we actually have files to upload. 
             if (selectedFiles is not null && selectedFiles.Count > 0)
             {
                 // keep track of uploaded files
                 var uploaded = 0;
-                // Enable upload progress
+                // toggle progress bar on
                 displayProgress = true;
 
                 foreach (var file in selectedFiles)
@@ -88,14 +90,14 @@
                     // asynchronously upload the file
                     await fileUpload.UploadFile(file);
 
-                    // inreament the uploaded count after successful upload
+                    // increment the uploaded count after successful upload
                     uploaded++;
 
                     // update the progress of upload
                     progressPercent = (int)((uploaded / selectedFiles.Count) * 100);
                 }
 
-                // disable upload progress view
+                // toggle progress bar off
                 displayProgress = false;
 
                 // Upload has been successful, notify user.
