@@ -32,6 +32,8 @@ namespace File_Upload_in_Blazor
             services.AddSingleton<WeatherForecastService>();
             // register our scoped service to upload
             services.AddScoped<IFileUpload, FileUpload>();
+            // register our scoped service to download
+            services.AddScoped<IFileDownload, FileDownload>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
